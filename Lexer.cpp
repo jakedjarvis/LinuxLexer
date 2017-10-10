@@ -9,6 +9,7 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 	ss << inputWord;
 	ss >> s;
 
+	
 	token = Token("UNDEFINED", s, handler->getLineNum());
 
 	switch (inputWord) {

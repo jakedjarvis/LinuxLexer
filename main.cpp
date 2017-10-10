@@ -31,10 +31,13 @@ int main(int argc, char* argv[]){
 
 			char currentChar = handler.getNextChar();
 
-			Token lexCheck = lex.singleCheck(currentChar, &handler);
-
-
-			tokenVector.push_back(lexCheck);
+			if (handler.input.peek() != EOF) {
+				Token lexCheck = lex.singleCheck(currentChar, &handler);
+				tokenVector.push_back(lexCheck);
+			}
+			else {
+				handler.plusLineNum();
+			}
 
 
 		}
@@ -45,8 +48,9 @@ int main(int argc, char* argv[]){
 
 
 	//Could be in print function
+	
 
-        tokenVector.pop_back();
+    
 
 	vector<Token> finalVector;
 

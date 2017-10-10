@@ -1,9 +1,10 @@
 
-'this is
-a multiline 
-string that 
-ends here'
+'
+this is
+a string
+that ends
+here
+'
 
-IDLine7
+ID9
 Rules
-
