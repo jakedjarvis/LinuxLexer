@@ -45,6 +45,9 @@ int main(int argc, char* argv[]){
 
 
 	//Could be in print function
+
+        tokenVector.pop_back();
+
 	vector<Token> finalVector;
 
 	for (int l = 0; l < tokenVector.size(); l++){

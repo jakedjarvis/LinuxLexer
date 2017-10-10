@@ -216,11 +216,11 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 			rulesChecker.push_back(inputWord);
 			inputWord = handler->getNextChar();
 			if (inputWord == '\n') {
-				token = Token("ID", rulesChecker, handler->getLineNum());
+                                token = Token("ID", rulesChecker, handler->getLineNum());
 				handler->plusLineNum();
 			}
 		}
-		if (rulesChecker == "Facts") {
+                if (rulesChecker == "Rules") {
 			token = Token("RULES", rulesChecker, handler->getLineNum());
 		}
 		break;
