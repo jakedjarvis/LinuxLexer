@@ -182,9 +182,10 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		}
 		if (queriesChecker == "Queries") {
 			token = Token("QUERIES", queriesChecker, handler->getLineNum());
+                        handler->input.unget();
 		}
         else{
-        	handler->input.unget();
+            handler->input.unget();
             token = Token("ID", queriesChecker, handler->getLineNum());
         }
 		break;
@@ -214,6 +215,7 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
             }
             if (schemesChecker == "Schemes") {
                     token = Token("SCHEMES", schemesChecker, handler->getLineNum());
+                    handler->input.unget();
             }
             else{
             	handler->input.unget();
@@ -243,6 +245,7 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		}
 		if (factsChecker == "Facts") {
 			token = Token("FACTS", factsChecker, handler->getLineNum());
+                        handler->input.unget();
 		}
         else{
         	handler->input.unget();
@@ -272,6 +275,7 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		}
                 if (rulesChecker == "Rules") {
 			token = Token("RULES", rulesChecker, handler->getLineNum());
+                        handler->input.unget();
 		}
         else{
         	handler->input.unget();
