@@ -1,1 +1,8 @@
-something3()
+
+something
+another thing
+
+'string on line 5
+and 6'
+
+file ends 8

@@ -183,9 +183,10 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		if (queriesChecker == "Queries") {
 			token = Token("QUERIES", queriesChecker, handler->getLineNum());
 		}
-                else{
-                    token = Token("ID", queriesChecker, handler->getLineNum());
-                }
+        else{
+        	handler->input.unget();
+            token = Token("ID", queriesChecker, handler->getLineNum());
+        }
 		break;
 	}
 	case 'S':
@@ -215,6 +216,7 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
                     token = Token("SCHEMES", schemesChecker, handler->getLineNum());
             }
             else{
+            	handler->input.unget();
                 token = Token("ID", schemesChecker, handler->getLineNum());
             }
             break;
@@ -242,9 +244,10 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		if (factsChecker == "Facts") {
 			token = Token("FACTS", factsChecker, handler->getLineNum());
 		}
-                else{
-                    token = Token("ID", factsChecker, handler->getLineNum());
-                }
+        else{
+        	handler->input.unget();
+            token = Token("ID", factsChecker, handler->getLineNum());
+        }
 		break;
 	}
 	case 'R':
@@ -270,9 +273,10 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
                 if (rulesChecker == "Rules") {
 			token = Token("RULES", rulesChecker, handler->getLineNum());
 		}
-                else{
-                    token = Token("ID", rulesChecker, handler->getLineNum());
-                }
+        else{
+        	handler->input.unget();
+            token = Token("ID", rulesChecker, handler->getLineNum());
+        }
 		break;
 	}
 	case EOF:
@@ -289,14 +293,15 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 		
                         while (isalnum(inputWord)) {
 
-				id.push_back(inputWord);
-                                inputWord = handler->getNextChar();
+							id.push_back(inputWord);
+							inputWord = handler->getNextChar();
 				
-				if (inputWord == '\n') {
-					handler->plusLineNum();
-				}
-			}
-		
+							if (inputWord == '\n') {
+								handler->plusLineNum();
+							}
+						}
+
+			handler->input.unget();
 			token = Token("ID", id, IDLineNum);
 		}
 		else if (!isspace(inputWord)) {
