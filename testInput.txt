@@ -1,1 +1,13 @@
-Rules()
+
+
+shemes 
+facts 
+rules 
+queries 
+ 
+ 
+ 
+'string line 10
+and 11'
+
+something13
