@@ -1,10 +1,1 @@
-
-'
-this is
-a string
-that ends
-here
-'
-
-ID9
-Rules
+something3()

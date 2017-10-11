@@ -132,15 +132,17 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 	}
 	case ':':
 	{
-		ss << inputWord;
-		ss >> s;
-		if (handler->input.peek() == '-')
+                string cChecker;
+                cChecker.push_back(inputWord);
+
+                if (handler->input.peek() == '-')
 		{
-			ss << '-';
-			token = Token("COLON_DASH", s, handler->getLineNum());
+                        inputWord = handler->getNextChar();
+                        cChecker.push_back(inputWord);
+                        token = Token("COLON_DASH", cChecker, handler->getLineNum());
 		}
 		else {
-			token = Token("COLON", s, handler->getLineNum());
+                        token = Token("COLON", cChecker, handler->getLineNum());
 		}
 		break;
 	}
@@ -162,68 +164,115 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 	{
 		string queriesChecker;
 
-		while (isalpha(inputWord)) {
+                while (isalnum(inputWord)) {
 			queriesChecker.push_back(inputWord);
 			inputWord = handler->getNextChar();
 			if (inputWord == '\n') {
-				token = Token("ID", queriesChecker, handler->getLineNum());
-				handler->plusLineNum();
+                            if(queriesChecker == "Queries"){
+                                token = Token("QUERIES", queriesChecker, handler->getLineNum());
+                                handler->plusLineNum();
+                                return token;
+                            }
+                            else{
+                                token = Token("ID", queriesChecker, handler->getLineNum());
+                                handler->plusLineNum();
+                                return token;
+                            }
 			}
 		}
 		if (queriesChecker == "Queries") {
 			token = Token("QUERIES", queriesChecker, handler->getLineNum());
 		}
+                else{
+                    token = Token("ID", queriesChecker, handler->getLineNum());
+                }
 		break;
 	}
 	case 'S':
 	{
-		string schemesChecker;
+            string schemesChecker;
 
-		while (isalpha(inputWord)) {
-			schemesChecker.push_back(inputWord);
-			inputWord = handler->getNextChar();
-			if (inputWord == '\n') {
-				token = Token("ID", schemesChecker, handler->getLineNum());
-				handler->plusLineNum();
-			}
-		}
-		if (schemesChecker == "Schemes") {
-			token = Token("SCHEMES", schemesChecker, handler->getLineNum());
-		}
-		break;
+            while (isalnum(inputWord)) {
+
+                    schemesChecker.push_back(inputWord);
+                    inputWord = handler->getNextChar();
+                    if (inputWord == '\n') {
+                        if(schemesChecker == "Schemes"){
+                            token = Token("SCHEMES", schemesChecker, handler->getLineNum());
+                            handler->plusLineNum();
+                            return token;
+                        }
+                        else{
+                            token = Token("ID", schemesChecker, handler->getLineNum());
+                            handler->plusLineNum();
+                            return token;
+                        }
+
+
+                    }
+            }
+            if (schemesChecker == "Schemes") {
+                    token = Token("SCHEMES", schemesChecker, handler->getLineNum());
+            }
+            else{
+                token = Token("ID", schemesChecker, handler->getLineNum());
+            }
+            break;
 	}
 	case 'F':
 	{
 		string factsChecker;
 
-		while (isalpha(inputWord)) {
+                while (isalnum(inputWord)) {
 			factsChecker.push_back(inputWord);
 			inputWord = handler->getNextChar();
 			if (inputWord == '\n') {
-				token = Token("ID", factsChecker, handler->getLineNum());
-				handler->plusLineNum();
+                            if(factsChecker == "Facts"){
+                                token = Token("FACTS", factsChecker, handler->getLineNum());
+                                handler->plusLineNum();
+                                return token;
+                            }
+                            else{
+                                token = Token("ID", factsChecker, handler->getLineNum());
+                                handler->plusLineNum();
+                                return token;
+                            }
 			}
 		}
 		if (factsChecker == "Facts") {
 			token = Token("FACTS", factsChecker, handler->getLineNum());
 		}
+                else{
+                    token = Token("ID", factsChecker, handler->getLineNum());
+                }
 		break;
 	}
 	case 'R':
 	{
 		string rulesChecker;
 
-		while (isalpha(inputWord)) {
+                while (isalnum(inputWord)) {
 			rulesChecker.push_back(inputWord);
 			inputWord = handler->getNextChar();
 			if (inputWord == '\n') {
+                            if(rulesChecker == "Rules"){
+                                token = Token("RULES", rulesChecker, handler->getLineNum());
+                                handler->plusLineNum();
+                                return token;
+                            }
+                            else{
                                 token = Token("ID", rulesChecker, handler->getLineNum());
-				handler->plusLineNum();
+                                handler->plusLineNum();
+                                return token;
+                            }
 			}
 		}
                 if (rulesChecker == "Rules") {
 			token = Token("RULES", rulesChecker, handler->getLineNum());
 		}
+                else{
+                    token = Token("ID", rulesChecker, handler->getLineNum());
+                }
 		break;
 	}
 	case EOF:
@@ -233,13 +282,15 @@ Token Lexer::singleCheck(char inputWord, FileHandler* handler){
 	}
 	default:
 	{
+
 		if (isalpha(inputWord)){
 			string id;
 			int IDLineNum = handler->getLineNum();
 		
-			while (isalnum(inputWord)) {
+                        while (isalnum(inputWord)) {
+
 				id.push_back(inputWord);
-				inputWord = handler->getNextChar();
+                                inputWord = handler->getNextChar();
 				
 				if (inputWord == '\n') {
 					handler->plusLineNum();
